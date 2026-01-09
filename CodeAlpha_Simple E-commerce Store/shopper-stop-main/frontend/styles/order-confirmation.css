@@ -1,0 +1,416 @@
+/* Order Confirmation Styles */
+
+.confirmation-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+/* Confirmation Icon */
+.confirmation-icon {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.icon-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background-color: var(--success-color);
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.icon-circle i {
+    font-size: 2.5rem;
+    color: white;
+}
+
+/* Confirmation Message */
+.confirmation-message {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.confirmation-message h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--success-color);
+}
+
+.confirmation-message p {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.order-number {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 1.5rem 0;
+}
+
+.confirmation-text {
+    color: var(--text-light) !important;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Order Summary Card */
+.order-summary-card {
+    background-color: var(--bg-color);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.order-summary-card h2 {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.summary-details {
+    margin-bottom: 2rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row span:first-child {
+    color: var(--text-light);
+}
+
+.detail-row span:last-child {
+    font-weight: 500;
+}
+
+.order-total {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-badge.processing {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status-badge.shipped {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.status-badge.delivered {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.estimated-delivery {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: var(--bg-light);
+    border-radius: var(--radius);
+    border-left: 4px solid var(--primary-color);
+}
+
+.estimated-delivery i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.estimated-delivery div strong {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.estimated-delivery div p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Order Items Section */
+.order-items-section {
+    margin-bottom: 2rem;
+}
+
+.order-items-section h2 {
+    margin-bottom: 1.5rem;
+}
+
+.order-items {
+    background-color: var(--bg-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    gap: 1rem;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--radius);
+}
+
+.order-item-details {
+    flex: 1;
+}
+
+.order-item-details h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.order-item-details p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.order-item-quantity {
+    color: var(--text-light);
+}
+
+.order-item-price {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Shipping Section */
+.shipping-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.shipping-info,
+.billing-info {
+    background-color: var(--bg-color);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.shipping-info h3,
+.billing-info h3 {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.address-details p {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.address-details p:last-child {
+    margin-bottom: 0;
+}
+
+#billingAddress {
+    color: var(--text-color);
+    font-style: italic;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.action-buttons .btn {
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.btn-outline:hover {
+    background-color: var(--bg-light);
+    border-color: var(--text-light);
+}
+
+/* Help Section */
+.help-section {
+    text-align: center;
+    padding: 3rem;
+    background-color: var(--bg-light);
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+}
+
+.help-section h3 {
+    margin-bottom: 1rem;
+}
+
+.help-section p {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--bg-color);
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.contact-option:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.contact-option i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.contact-option div strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.contact-option div p {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .footer,
+    .action-buttons,
+    .help-section,
+    .mobile-menu-btn {
+        display: none !important;
+    }
+    
+    .confirmation-container {
+        padding: 0;
+    }
+    
+    .order-summary-card,
+    .shipping-info,
+    .billing-info,
+    .order-items {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .confirmation-message h1 {
+        font-size: 2rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .action-buttons .btn {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .shipping-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .order-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .order-item-details {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .confirmation-container {
+        padding: 1rem 0;
+    }
+    
+    .order-summary-card,
+    .shipping-info,
+    .billing-info {
+        padding: 1rem;
+    }
+    
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .icon-circle i {
+        font-size: 2rem;
+    }
+}

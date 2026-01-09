@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3Sphere - Social Media</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #00b894;
+            --secondary: #ffffff;
+            --bg: linear-gradient(135deg, #ffffff 0%, #f0f8f5 100%);
+            --card-bg: white;
+            --button: var(--primary);
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* ===== AUTH SCREEN ===== */
+        #auth-screen {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #5d4d9d 0%, #5c4a98 100%);
+        }
+        
+        .auth-container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .auth-welcome {
+            flex: 1;
+            color: white;
+            display: none;
+        }
+        
+        .auth-welcome h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .auth-welcome p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .auth-welcome ul {
+            list-style: none;
+            font-size: 1.1em;
+        }
+        
+        .auth-welcome li {
+            margin: 15px 0;
+            opacity: 0.9;
+        }
+        
+        .auth-welcome i {
+            width: 30px;
+            color: #4CAF50;
+            margin-right: 15px;
+        }
+        
+        .auth-form-container {
+            flex: 1;
+            background: rgb(195, 124, 31);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .auth-header h1 {
+            color: var(--primary);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .auth-header p {
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #babd9e;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .auth-tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+            animation: slideIn 0.3s;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #e3d9d9;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--button);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+            background: color-mix(in srgb, var(--button) 80%, black 20%);
+        }
+
+        .error {
+            color: var(--button);
+            font-size: 0.9em;
+            margin-top: 8px;
+            display: none;
+        }
+        
+        .error.show {
+            display: block;
+        }
+        
+        .success {
+            color: #2788ae;
+            font-size: 0.9em;
+            margin-top: 8px;
+            display: none;
+        }
+        
+        .success.show {
+            display: block;
+        }
+        
+        /* ===== APP SCREEN ===== */
+        #app-screen {
+            width: 100%;
+            min-height: 100vh;
+            background: #465462;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .app-navbar {
+            background: linear-gradient(135deg, #358cca 0%, #1abc9c 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .app-navbar h1 {
+            font-size: 1.8em;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .app-navbar img {
+            height: 40px;
+            width: auto;
+        }
+        
+        .app-navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .app-navbar-right button {
+            background: var(--button);
+            color: white;
+            border: 2px solid var(--button);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .app-navbar-right button:hover {
+            background: color-mix(in srgb, var(--button) 80%, black 20%);
+            color: white;
+            border-color: color-mix(in srgb, var(--button) 80%, black 20%);
+        }
+        
+        .app-container {
+            flex: 1;
+            display: flex;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            gap: 30px;
+            padding: 30px;
+        }
+        
+        .sidebar {
+            flex: 0 0 300px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky;
+            top: 80px;
+        }
+        
+        .delete-photo-btn {
+            margin-top: 8px;
+            width: 100%;
+            padding: 8px;
+            background: var(--button);
+            color: white;
+            border: 3px solid color-mix(in srgb, var(--button) 80%, black 20%);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+
+        .delete-photo-btn:hover {
+            background: color-mix(in srgb, var(--button) 80%, black 20%);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+        
+        .sidebar h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .user-card {
+            text-align: center;
+        }
+        
+        .user-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 4px solid var(--primary);
+        }
+        
+        .user-card h2 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .user-card .username {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .user-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-item .count {
+            font-size: 1.5em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .stat-item .label {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .feed {
+            flex: 1;
+        }
+        
+        .post-creator {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .post-creator textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+            margin-bottom: 10px;
+        }
+        
+        .post-creator button {
+            background: var(--button);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .post-creator button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            background: color-mix(in srgb, var(--button) 80%, black 20%);
+        }
+        
+        .post {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            animation: slideIn 0.3s;
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+        
+        .post-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #667eea;
+        }
+        
+        .post-header-info h4 {
+            color: #333;
+            margin: 0;
+        }
+        
+        .post-header-info .username {
+            color: #667eea;
+            font-size: 0.9em;
+            margin: 5px 0 0 0;
+        }
+        
+        .post-header-info .time {
+            color: #999;
+            font-size: 0.85em;
+        }
+        
+        .post-content {
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .post-stats {
+            display: flex;
+            gap: 20px;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .post-actions button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: #f5f7fa;
+            color: #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .post-actions button:hover {
+            background: color-mix(in srgb, var(--button) 80%, white 20%);
+            color: white;
+        }
+
+        .post-actions button.liked {
+            color: var(--button);
+            background: color-mix(in srgb, var(--button) 10%, white 90%);
+        }
+        
+        .comment-section {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .comment-section.show {
+            display: block;
+        }
+        
+        .comment {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 3px solid #667eea;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .comment-header strong {
+            color: #333;
+        }
+        
+        .comment-header small {
+            color: #999;
+        }
+        
+        .comment-text {
+            color: #555;
+            font-size: 0.95em;
+        }
+        
+        .comment-input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .comment-input-group input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+        
+        .comment-input-group button {
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .profile-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-modal.show {
+            display: flex;
+        }
+        
+        .profile-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .profile-modal-close {
+            float: right;
+            font-size: 2em;
+            cursor: pointer;
+            color: #a5ae5d;
+            background: none;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+            clear: both;
+        }
+        
+        .profile-header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 4px solid #667eea;
+        }
+        
+        .profile-header h2 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .profile-header .bio {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .profile-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .profile-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .follow-btn {
+            background: var(--button);
+            color: white;
+        }
+        
+        .follow-btn.following {
+            background: #ddd;
+            color: #333;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .search-container {
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .search-results {
+            display: none;
+            position: absolute;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 100%;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .search-results.show {
+            display: block;
+        }
+        
+        .search-result-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+        
+        .search-result-item:hover {
+            background: #f5f7fa;
+        }
+        
+        .search-result-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
+        .search-result-info {
+            flex: 1;
+        }
+        
+        .search-result-info .name {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .search-result-info .username {
+            color: #667eea;
+            font-size: 0.9em;
+        }
+        
+        .discover-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        
+        .discover-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        
+        .users-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .user-card-small {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .user-card-small:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+        
+        .user-card-small img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 3px solid #667eea;
+        }
+        
+        .user-card-small h4 {
+            color: #333;
+            margin: 10px 0 5px 0;
+            font-size: 0.95em;
+        }
+        
+        .user-card-small .username {
+            color: #667eea;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+        
+        .user-card-small .follower-count {
+            color: #666;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+        
+        .user-card-small button {
+            width: 100%;
+            padding: 8px;
+            background: var(--button);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: all 0.3s;
+        }
+        
+        .user-card-small button:hover {
+            transform: scale(1.05);
+        }
+        
+        .user-card-small button.following {
+            background: #ddd;
+            color: #333;
+        }
+        
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            color: #666;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.show {
+            display: block;
+        }
+        
+        .search-wrapper {
+            position: relative;
+        }
+        
+        @media (max-width: 1024px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                flex: 1;
+                position: static;
+            }
+            
+            .auth-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .auth-welcome {
+                display: none !important;
+            }
+        }
+
+        /* Theme overrides: green accents, red buttons */
+        .user-card .username { color: var(--primary) !important; }
+        .stat-item .count { color: var(--primary) !important; }
+        .post-header img { border-color: var(--primary) !important; }
+        .post-actions button { color: #eed9d9 !important; background: #f0f0f0 !important; }
+        .post-actions button:hover { background: var(--button) !important; color: white !important; }
+        .comment-input-group button { background: var(--button) !important; }
+        .profile-header img { border-color: var(--primary) !important; }
+        .discover-section h3 { color: var(--primary) !important; }
+        .user-card-small:hover { border-color: var(--primary) !important; }
+        .user-card-small img { border-color: var(--primary) !important; }
+        .tab-btn.active { color: var(--primary) !important; border-bottom-color: var(--primary) !important; }
+        .search-input:focus { border-color: var(--primary) !important; box-shadow: 0 0 0 3px rgba(0,184,148,0.08) !important; }
+
+    </style>
+</head>
+<body>
+
+<!-- ===== AUTH SCREEN ===== -->
+<div id="auth-screen">
+    <div class="auth-container">
+        <div class="auth-welcome">
+            <h1>Welcome to 3Sphere</h1>
+            <p>Connect with friends, share your moments, and build your community.</p>
+            <ul>
+                <li><i class="fas fa-users"></i> Connect with friends worldwide</li>
+                <li><i class="fas fa-images"></i> Share your favorite moments</li>
+                <li><i class="fas fa-heart"></i> Like and comment on posts</li>
+                <li><i class="fas fa-user-plus"></i> Build your network</li>
+            </ul>
+        </div>
+        
+        <div class="auth-form-container">
+            <div class="auth-header">
+                <h1>3Sphere</h1>
+                <p>Social Media Platform</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
+                <button class="auth-tab" onclick="switchAuthTab('register')">Register</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active" onsubmit="login(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="login-email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+                <div id="login-error" class="error"></div>
+            </form>
+            
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form" onsubmit="register(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="register-name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="register-username" placeholder="johndoe" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="register-email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="register-password" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label>Bio (Optional)</label>
+                    <textarea id="register-bio" placeholder="Tell us about yourself..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Create Account</button>
+                <div id="register-error" class="error"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ===== APP SCREEN ===== -->
+<div id="app-screen" class="hidden">
+    <div class="app-navbar">
+        <h1>3Sphere</h1>
+        <div class="app-navbar-right">
+            <span id="user-welcome"></span>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+    
+    <div class="app-container">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <div class="user-card">
+                <img id="profile-avatar" src="https://via.placeholder.com/100" alt="Avatar">
+                <div style="margin-top:12px;">
+                    <input type="file" id="profile-photo-input" accept="image/*">
+                    <button style="margin-top:8px; width:100%; padding:8px; background:var(--button); color:white; border:none; border-radius:6px;" onclick="uploadProfilePhoto()">Upload Photo</button>
+                    <button class="delete-photo-btn" onclick="deleteProfilePhoto()">🗑️ Delete Photo</button>
+                </div>
+                <div style="margin-top:8px;">
+                    <label style="font-size:0.9em; color:#666;">Theme color:</label>
+                    <input type="color" id="theme-color" value="#00b894" style="width:80%; height:28px; border-radius:6px; border:none;" onchange="changePrimaryColor(this.value)">
+                </div>
+                <h2 id="profile-name">User</h2>
+                <div class="username" id="profile-username">@user</div>
+                <p id="profile-bio">Bio here</p>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <div class="count" id="followers-count">0</div>
+                        <div class="label">Followers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="count" id="following-count">0</div>
+                        <div class="label">Following</div>
+                    </div>
+                </div>
+                
+                <!-- Follow Requests Section -->
+                <div id="follow-requests-container" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #eee;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feed -->
+        <div class="feed">
+            <!-- Tabs Navigation -->
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchFeedTab('feed')">📰 Feed</button>
+                <button class="tab-btn" onclick="switchFeedTab('discover')">🔍 Discover</button>
+            </div>
+            
+            <!-- Feed Tab -->
+            <div id="feed-tab" class="tab-content show">
+                <!-- Post Creator -->
+                <div class="post-creator">
+                    <textarea id="post-content" placeholder="What's on your mind?" required></textarea>
+                    <div style="margin:10px 0; display:flex; gap:10px; align-items:center;">
+                        <input type="file" id="post-image" accept="image/*">
+                        <button onclick="createPost()">📤 Post</button>
+                    </div>
+                    <div id="post-image-preview" style="margin-top:8px;"></div>
+                </div>
+                
+                <!-- Posts -->
+                <div id="posts-feed"></div>
+            </div>
+            
+            <!-- Discover Tab -->
+            <div id="discover-tab" class="tab-content">
+                <div class="discover-section">
+                    <h3>🔎 Search People</h3>
+                    <div class="search-wrapper">
+                        <input type="text" class="search-input" id="search-input" placeholder="Search by name, username..." oninput="searchUsers()">
+                        <div class="search-results" id="search-results"></div>
+                    </div>
+                </div>
+                
+                <div class="discover-section">
+                    <h3>⭐ Suggested Users</h3>
+                    <div class="users-grid" id="suggested-users">
+                        <p style="grid-column: 1/-1; text-align: center; color: #999;">Loading users...</p>
+                    </div>
+                </div>
+                
+                <div class="discover-section">
+                    <h3>👥 All Users</h3>
+                    <div class="users-grid" id="all-users">
+                        <p style="grid-column: 1/-1; text-align: center; color: #999;">Loading users...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Modal -->
+<div id="profile-modal" class="profile-modal">
+    <div class="profile-modal-content">
+        <button class="profile-modal-close" onclick="closeProfileModal()">×</button>
+        <div id="profile-modal-body"></div>
+    </div>
+</div>
+
+<script>
+    const API_URL = 'http://localhost:5001/api';
+    let token = localStorage.getItem('token');
+    let currentUser = null;
+    
+    function avatarSrc(avatar) {
+        if (!avatar) return 'https://via.placeholder.com/100';
+        // if data URL or absolute URL, return as-is
+        if (typeof avatar === 'string' && (avatar.startsWith('data:') || avatar.startsWith('http') || avatar.startsWith('https'))) return avatar;
+        // otherwise fallback to placeholder
+        return 'https://via.placeholder.com/100';
+    }
+    
+    async function loadFollowRequests() {
+        const container = document.getElementById('follow-requests-container');
+        if (!container) return;
+        // If no token, clear
+        if (!token) { container.innerHTML = ''; return; }
+
+        try {
+            const res = await fetch(`${API_URL}/follow-requests`, { headers: { 'x-auth-token': token } });
+            // If backend doesn't implement follow-requests, quietly clear the UI
+            if (res.status === 404 || !res.ok) {
+                container.innerHTML = '';
+                return;
+            }
+
+            const requests = await res.json();
+            if (!requests || requests.length === 0) {
+                container.innerHTML = '<p style="color:#999; text-align:center;">No follow requests</p>';
+                return;
+            }
+
+            container.innerHTML = requests.map(r => `
+                <div style="margin-bottom:12px; text-align:left;">
+                    <strong>${r.name}</strong> <span style="color:#667eea">@${r.username}</span>
+                    <div style="margin-top:8px; display:flex; gap:8px;">
+                        <button style="padding:6px 10px; background:#00b894; color:#fff; border:none; border-radius:6px;" onclick="respondFollowRequest(${r.id}, true)">Accept</button>
+                        <button style="padding:6px 10px; background:#ddd; color:#333; border:none; border-radius:6px;" onclick="respondFollowRequest(${r.id}, false)">Reject</button>
+                    </div>
+                </div>
+            `).join('');
+        } catch (err) {
+            // network error or endpoint not present: hide section
+            container.innerHTML = '';
+        }
+    }
+
+    async function respondFollowRequest(requestId, accept) {
+        if (!token) return alert('Please log in');
+        try {
+            const res = await fetch(`${API_URL}/follow-requests/${requestId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
+                body: JSON.stringify({ accept })
+            });
+            if (!res.ok) {
+                const js = await res.json().catch(() => ({}));
+                return alert('Could not respond to request: ' + (js.error || res.statusText));
+            }
+            // refresh UI
+            await loadFollowRequests();
+            await loadUserData();
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    }
+
+    window.onload = async () => {
+        if (token) {
+            try {
+                const res = await fetch(`${API_URL}/auth/me`, { headers: { 'x-auth-token': token } });
+                if (res.ok) {
+                    currentUser = await res.json();
+                    showApp();
+                    await loadUserData();
+                    await loadFollowRequests();
+                    await loadPosts();
+                    await loadAllUsers();
+                } else {
+                    localStorage.removeItem('token');
+                    token = null;
+                    document.getElementById('auth-screen').classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error('Error fetching current user:', err);
+                document.getElementById('auth-screen').classList.remove('hidden');
+            }
+        } else {
+            document.getElementById('auth-screen').classList.remove('hidden');
+        }
+    };
+    
+    function switchAuthTab(tab) {
+        document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+        
+        if (tab === 'login') {
+            document.getElementById('login-form').classList.add('active');
+            document.querySelector('.auth-tab:nth-child(1)').classList.add('active');
+        } else {
+            document.getElementById('register-form').classList.add('active');
+            document.querySelector('.auth-tab:nth-child(2)').classList.add('active');
+        }
+    }
+    
+    async function login(e) {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        const errorDiv = document.getElementById('login-error');
+        
+        try {
+            const res = await fetch(`${API_URL}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const data = await res.json();
+            
+            if (res.ok) {
+                token = data.token;
+                currentUser = data.user;
+                localStorage.setItem('token', token);
+                showApp();
+                loadUserData();
+                loadFollowRequests();
+                loadPosts();
+            } else {
+                errorDiv.classList.add('show');
+                errorDiv.textContent = data.error || 'Login failed';
+            }
+        } catch (err) {
+            errorDiv.classList.add('show');
+            errorDiv.textContent = 'Error: ' + err.message;
+        }
+    }
+    
+    async function register(e) {
+        e.preventDefault();
+        const name = document.getElementById('register-name').value;
+        const username = document.getElementById('register-username').value;
+        const email = document.getElementById('register-email').value;
+        const password = document.getElementById('register-password').value;
+        const bio = document.getElementById('register-bio').value;
+        const errorDiv = document.getElementById('register-error');
+        
+        try {
+            const res = await fetch(`${API_URL}/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, username, email, password, bio })
+            });
+            const data = await res.json();
+            
+            if (res.ok) {
+                token = data.token;
+                currentUser = data.user;
+                localStorage.setItem('token', token);
+                showApp();
+                loadUserData();
+                loadFollowRequests();
+                loadPosts();
+            } else {
+                errorDiv.classList.add('show');
+                errorDiv.textContent = data.error || 'Registration failed';
+            }
+        } catch (err) {
+            errorDiv.classList.add('show');
+            errorDiv.textContent = 'Error: ' + err.message;
+        }
+    }
+    
+    function logout() {
+        localStorage.removeItem('token');
+        token = null;
+        currentUser = null;
+        document.getElementById('auth-screen').classList.remove('hidden');
+        document.getElementById('app-screen').classList.add('hidden');
+    }
+    
+    function showApp() {
+        document.getElementById('auth-screen').classList.add('hidden');
+        document.getElementById('app-screen').classList.remove('hidden');
+        document.getElementById('user-welcome').textContent = `Welcome, ${currentUser ? currentUser.name : 'User'}!`;
+    }
+    
+    async function loadUserData() {
+        try {
+            const res = await fetch(`${API_URL}/users/${currentUser.username}`, {
+                headers: { 'x-auth-token': token }
+            });
+            const user = await res.json();
+            // update currentUser with full info
+            currentUser = user;
+            document.getElementById('profile-avatar').src = avatarSrc(user.avatar);
+            document.getElementById('profile-name').textContent = user.name;
+            document.getElementById('profile-username').textContent = '@' + user.username;
+            document.getElementById('profile-bio').textContent = user.bio || 'No bio yet';
+            document.getElementById('followers-count').textContent = user.followers_count || 0;
+            document.getElementById('following-count').textContent = user.following_count || 0;
+        } catch (err) {
+            console.error('Error loading user data:', err);
+        }
+    }
+    
+    async function createPost() {
+        const contentEl = document.getElementById('post-content');
+        const fileInput = document.getElementById('post-image');
+        const previewEl = document.getElementById('post-image-preview');
+        const content = contentEl.value;
+
+        if (!content.trim() && (!fileInput.files || fileInput.files.length === 0)) {
+            alert('Please write something or choose an image');
+            return;
+        }
+
+        // helper to read file as data URL
+        const readFileAsDataURL = (file) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+
+        try {
+            let imageData = null;
+            if (fileInput.files && fileInput.files[0]) {
+                const file = fileInput.files[0];
+                // limit size to 5MB
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Image too large (max 5MB)');
+                    return;
+                }
+                imageData = await readFileAsDataURL(file);
+                // show preview
+                previewEl.innerHTML = `<img src="${imageData}" style="max-width:200px; max-height:200px; border-radius:8px;" />`;
+            } else {
+                previewEl.innerHTML = '';
+            }
+
+            const res = await fetch(`${API_URL}/posts`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': token
+                },
+                body: JSON.stringify({ content, image: imageData })
+            });
+
+            if (res.ok) {
+                contentEl.value = '';
+                fileInput.value = '';
+                previewEl.innerHTML = '';
+                loadPosts();
+            } else {
+                const err = await res.json();
+                alert('Error: ' + (err.error || 'Could not create post'));
+            }
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    }
+    
+    async function loadPosts() {
+        try {
+            const res = await fetch(`${API_URL}/posts`, {
+                headers: { 'x-auth-token': token }
+            });
+            
+            if (res.ok) {
+                const posts = await res.json();
+                displayPosts(posts);
+            }
+        } catch (err) {
+            console.error('Error loading posts:', err);
+        }
+    }
+
+    // Handle 401 responses: force logout and show login
+    async function checkAuthResponse(res) {
+        if (res.status === 401) {
+            // token invalid or expired
+            localStorage.removeItem('token');
+            token = null;
+            currentUser = null;
+            document.getElementById('auth-screen').classList.remove('hidden');
+            document.getElementById('app-screen').classList.add('hidden');
+            alert('Session expired — please log in again.');
+            return false;
+        }
+        return true;
+    }
+    
+    function displayPosts(posts) {
+        const feed = document.getElementById('posts-feed');
+        
+        if (posts.length === 0) {
+            feed.innerHTML = '<p style="text-align:center;color:#999;">No posts yet. Be the first to post!</p>';
+            return;
+        }
+        
+        feed.innerHTML = posts.map(post => `
+            <div class="post">
+                <div class="post-header">
+                    <img src="${avatarSrc(post.avatar).replace('/100','/50')}" alt="${post.name}">
+                    <div class="post-header-info">
+                        <h4>${post.name}</h4>
+                        <div class="username">@${post.username}</div>
+                        <div class="time">Just now</div>
+                    </div>
+                </div>
+                <div class="post-content">${post.content}</div>
+                ${post.image ? `<div style="margin:12px 0;"><img src="${post.image}" alt="Post image" style="max-width:100%; border-radius:8px;"/></div>` : ''}
+                <div class="post-stats">
+                    <span>❤️ ${post.likes_count || 0} Likes</span>
+                    <span>💬 ${post.comments_count || 0} Comments</span>
+                </div>
+                <div class="post-actions">
+                    <button onclick="likePost(${post.id})" class="${post.liked ? 'liked' : ''}">
+                        ${post.liked ? '❤️' : '🤍'} Like
+                    </button>
+                    <button onclick="toggleComments(${post.id})">💬 Comment</button>
+                    <button onclick="viewProfile('${post.username}')">👤 Profile</button>
+                    ${currentUser && String(post.user_id) === String(currentUser.id) ? `<button onclick="deletePost(${post.id})" style="background:var(--button);color:white;">🗑️ Delete</button>` : ''}
+                </div>
+                <div id="comments-${post.id}" class="comment-section">
+                    <div id="comments-list-${post.id}"></div>
+                    <div class="comment-input-group">
+                        <input type="text" id="comment-input-${post.id}" placeholder="Add a comment...">
+                        <button onclick="addComment(${post.id})">Post</button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    async function likePost(postId) {
+        try {
+            const headers = {};
+            if (token) headers['x-auth-token'] = token;
+
+            const res = await fetch(`${API_URL}/posts/${postId}/like`, {
+                method: 'POST',
+                headers
+            });
+
+            // If backend returns 401/403, don't force a full logout — just show message
+            if (res.status === 401 || res.status === 403) {
+                const js = await res.json().catch(() => ({}));
+                return alert('Could not like post: ' + (js.error || res.statusText));
+            }
+
+            if (res.ok) loadPosts();
+            else {
+                const js = await res.json().catch(() => ({}));
+                alert('Error: ' + (js.error || 'Could not like post'));
+            }
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    }
+
+    async function deletePost(postId) {
+        if (!confirm('Delete this post?')) return;
+        try {
+            const res = await fetch(`${API_URL}/posts/${postId}`, {
+                method: 'DELETE',
+                headers: { 'x-auth-token': token }
+            });
+            if (res.ok) loadPosts();
+            else {
+                const err = await res.json();
+                alert('Error deleting post: ' + (err.error || 'Unknown'));
+            }
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    }
+    
+    function toggleComments(postId) {
+        const section = document.getElementById(`comments-${postId}`);
+        section.classList.toggle('show');
+        if (section.classList.contains('show')) {
+            loadComments(postId);
+        }
+    }
+    
+    async function loadComments(postId) {
+        try {
+            const res = await fetch(`${API_URL}/posts/${postId}/comments`, {
+                headers: { 'x-auth-token': token }
+            });
+            const comments = await res.json();
+            const list = document.getElementById(`comments-list-${postId}`);
+            
+            list.innerHTML = comments.map(c => `
+                <div class="comment">
+                    <div class="comment-header">
+                        <strong>${c.name}</strong>
+                        <small>@${c.username}</small>
+                    </div>
+                    <div class="comment-text">${c.content}</div>
+                </div>
+            `).join('');
+        } catch (err) {
+            console.error('Error loading comments:', err);
+        }
+    }
+    
+    async function addComment(postId) {
+        const input = document.getElementById(`comment-input-${postId}`);
+        const content = input.value;
+        
+        if (!content.trim()) return;
+        
+        try {
+            await fetch(`${API_URL}/posts/${postId}/comments`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': token
+                },
+                body: JSON.stringify({ content })
+            });
+            input.value = '';
+            loadComments(postId);
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    }
+    
+    async function viewProfile(username) {
+        try {
+            const res = await fetch(`${API_URL}/users/${username}`, {
+                headers: { 'x-auth-token': token }
+            });
+            const user = await res.json();
+            
+            const body = document.getElementById('profile-modal-body');
+            body.innerHTML = `
+                <div class="profile-header">
+                    <img src="${avatarSrc(user.avatar).replace('/100','/120')}" alt="${user.name}">
+                    <h2>${user.name}</h2>
+                    <div class="username">@${user.username}</div>
+                    <div class="bio">${user.bio || 'No bio'}</div>
+                    <div class="user-stats" style="border: none;">
+                        <div class="stat-item">
+                            <div class="count">${user.followers_count || 0}</div>
+                            <div class="label">Followers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="count">${user.following_count || 0}</div>
+                            <div class="label">Following</div>
+                        </div>
+                    </div>
+                    ${currentUser && currentUser.username !== username ? `
+                        <div class="profile-actions">
+                            <button class="follow-btn ${user.is_following ? 'following' : ''}" onclick="toggleFollow(${user.id}, '${username}')">
+                                ${user.is_following ? '✓ Following' : '+ Follow'}
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            document.getElementById('profile-modal').classList.add('show');
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    }
+    
+    async function toggleFollow(userId, username) {
+        try {
+            await fetch(`${API_URL}/users/${userId}/follow`, {
+                method: 'POST',
+                headers: { 'x-auth-token': token }
+            });
+            viewProfile(username);
+            loadUserData();
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    }
+    
+    function closeProfileModal() {
+        document.getElementById('profile-modal').classList.remove('show');
+    }
+    
+    // Tab switching
+    function switchFeedTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('show'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        
+        if (tab === 'feed') {
+            document.getElementById('feed-tab').classList.add('show');
+            document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+        } else {
+            document.getElementById('discover-tab').classList.add('show');
+            document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+            loadAllUsers();
+        }
+    }
+    
+    // Search users
+    let allUsers = [];
+    
+    async function loadAllUsers() {
+        try {
+            const res = await fetch(`${API_URL}/users`, {
+                headers: { 'x-auth-token': token }
+            });
+            
+            if (res.ok) {
+                allUsers = await res.json();
+                displaySuggestedUsers();
+                displayAllUsers();
+            }
+        } catch (err) {
+            console.error('Error loading users:', err);
+        }
+    }
+    
+    function searchUsers() {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        const resultsDiv = document.getElementById('search-results');
+        
+        if (!query) {
+            resultsDiv.classList.remove('show');
+            return;
+        }
+        
+        const results = allUsers.filter(u => 
+            u.name.toLowerCase().includes(query) || 
+            u.username.toLowerCase().includes(query)
+        );
+        
+        if (results.length === 0) {
+            resultsDiv.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">No users found</div>';
+        } else {
+            resultsDiv.innerHTML = results.map(u => `
+                <div class="search-result-item" onclick="viewProfile('${u.username}')">
+                    <img src="${avatarSrc(u.avatar).replace('/100','/40')}" alt="${u.name}">
+                    <div class="search-result-info">
+                        <div class="name">${u.name}</div>
+                        <div class="username">@${u.username}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        resultsDiv.classList.add('show');
+    }
+    
+    function displaySuggestedUsers() {
+        const container = document.getElementById('suggested-users');
+        if (!currentUser) return;
+        const suggested = allUsers
+            .filter(u => u.username !== currentUser.username && !u.is_following)
+            .slice(0, 6);
+        
+        if (suggested.length === 0) {
+            container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">No more users to suggest!</p>';
+            return;
+        }
+        
+        container.innerHTML = suggested.map(u => `
+            <div class="user-card-small">
+                <img src="${avatarSrc(u.avatar).replace('/100','/80')}" alt="${u.name}">
+                <h4>${u.name}</h4>
+                <div class="username">@${u.username}</div>
+                <div class="follower-count">${u.followers_count || 0} followers</div>
+                <button class="${u.is_following ? 'following' : ''}" onclick="toggleFollowFromDiscover(${u.id}, '${u.username}')">
+                    ${u.is_following ? '✓ Following' : '+ Follow'}
+                </button>
+            </div>
+        `).join('');
+    }
+    
+    function displayAllUsers() {
+        const container = document.getElementById('all-users');
+        if (!currentUser) return;
+        const filtered = allUsers.filter(u => u.username !== currentUser.username);
+        
+        if (filtered.length === 0) {
+            container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">No users found</p>';
+            return;
+        }
+        
+        container.innerHTML = filtered.map(u => `
+            <div class="user-card-small">
+                <img src="${avatarSrc(u.avatar).replace('/100','/80')}" alt="${u.name}">
+                <h4>${u.name}</h4>
+                <div class="username">@${u.username}</div>
+                <div class="follower-count">${u.followers_count || 0} followers</div>
+                <button class="${u.is_following ? 'following' : ''}" onclick="toggleFollowFromDiscover(${u.id}, '${u.username}')">
+                    ${u.is_following ? '✓ Following' : '+ Follow'}
+                </button>
+            </div>
+        `).join('');
+    }
+    
+    async function toggleFollowFromDiscover(userId, username) {
+        try {
+            await fetch(`${API_URL}/users/${userId}/follow`, {
+                method: 'POST',
+                headers: { 'x-auth-token': token }
+            });
+            loadAllUsers();
+            loadUserData();
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    }
+
+    async function uploadProfilePhoto() {
+        const input = document.getElementById('profile-photo-input');
+        if (!input.files || !input.files[0]) {
+            alert('Choose an image first');
+            return;
+        }
+        const file = input.files[0];
+        if (file.size > 5 * 1024 * 1024) { alert('Image too large (max 5MB)'); return; }
+
+        const readFileAsDataURL = (file) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+
+        try {
+            const dataUrl = await readFileAsDataURL(file);
+            const res = await fetch(`${API_URL}/users/avatar`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
+                body: JSON.stringify({ image: dataUrl })
+            });
+            if (res.ok) {
+                const js = await res.json();
+                if (js.user && js.user.avatar) {
+                    currentUser = js.user;
+                    document.getElementById('profile-avatar').src = avatarSrc(js.user.avatar);
+                    loadUserData();
+                }
+            } else {
+                const err = await res.json();
+                alert('Upload failed: ' + (err.error || 'Unknown'));
+            }
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    }
+
+    async function deleteProfilePhoto() {
+        if (!confirm('Remove profile photo?')) return;
+        try {
+            const res = await fetch(`${API_URL}/users/avatar`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
+                body: JSON.stringify({ remove: true })
+            });
+            if (res.ok) {
+                const js = await res.json();
+                currentUser = js.user;
+                document.getElementById('profile-avatar').src = avatarSrc(js.user.avatar);
+                loadUserData();
+            } else {
+                const err = await res.json();
+                alert('Delete failed: ' + (err.error || 'Unknown'));
+            }
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    }
+
+    function changePrimaryColor(hex) {
+        if (!hex) return;
+        const darker = hex; // keep simple: use same color as primary
+        document.documentElement.style.setProperty('--primary', hex);
+        document.documentElement.style.setProperty('--secondary', darker);
+        document.documentElement.style.setProperty('--bg', `linear-gradient(135deg, ${hex} 0%, ${darker} 100%)`);
+        localStorage.setItem('primaryColor', hex);
+    }
+
+    // Apply saved theme color
+    (function(){
+        const saved = localStorage.getItem('primaryColor');
+        if (saved) {
+            const el = document.getElementById('theme-color');
+            if (el) el.value = saved;
+            changePrimaryColor(saved);
+        }
+    })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Shopper Stop</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Shopper Stop</span>
+            </a>
+            
+            <div class="search-box">
+                <input type="text" placeholder="Search products..." id="searchInput">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="products.html" class="nav-link">
+                    <i class="fas fa-store"></i>
+                    <span>Products</span>
+                </a>
+                <a href="cart.html" class="nav-link cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                    <span class="cart-count">0</span>
+                </a>
+                <div class="nav-link auth-link active">
+                    <i class="fas fa-user"></i>
+                    <span id="authText">Profile</span>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html" class="mobile-menu-link">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="products.html" class="mobile-menu-link">
+            <i class="fas fa-store"></i> Products
+        </a>
+        <a href="cart.html" class="mobile-menu-link">
+            <i class="fas fa-shopping-cart"></i> Cart
+        </a>
+        <a href="profile.html" class="mobile-menu-link active">
+            <i class="fas fa-user"></i> Profile
+        </a>
+        <a href="order-history.html" class="mobile-menu-link">
+            <i class="fas fa-history"></i> Orders
+        </a>
+        <a href="#" class="mobile-menu-link" id="mobileAuthLink">
+            <i class="fas fa-user"></i> <span id="mobileAuthText">Profile</span>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="profile-container">
+                <!-- Sidebar Navigation -->
+                <div class="profile-sidebar">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="user-details">
+                            <h3 id="userName">Loading...</h3>
+                            <p id="userEmail">Loading...</p>
+                            <p class="member-since" id="memberSince"></p>
+                        </div>
+                    </div>
+                    
+                    <nav class="sidebar-nav">
+                        <a href="#account" class="nav-item active" data-section="account">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Account Settings</span>
+                        </a>
+                        <a href="#addresses" class="nav-item" data-section="addresses">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Addresses</span>
+                        </a>
+                        <a href="#orders" class="nav-item" data-section="orders">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>My Orders</span>
+                            <span class="nav-badge" id="ordersCount">0</span>
+                        </a>
+                        <a href="#wishlist" class="nav-item" data-section="wishlist">
+                            <i class="fas fa-heart"></i>
+                            <span>Wishlist</span>
+                            <span class="nav-badge" id="wishlistCount">0</span>
+                        </a>
+                        <a href="#security" class="nav-item" data-section="security">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Security</span>
+                        </a>
+                        <a href="#notifications" class="nav-item" data-section="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                        </a>
+                    </nav>
+                    
+                    <div class="sidebar-footer">
+                        <button class="btn btn-logout" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Main Content Area -->
+                <div class="profile-content">
+                    <!-- Account Settings Section -->
+                    <section id="accountSection" class="profile-section active">
+                        <div class="section-header">
+                            <h2>Account Settings</h2>
+                            <p>Manage your account information and preferences</p>
+                        </div>
+                        
+                        <form id="profileForm" class="profile-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profileName">Full Name</label>
+                                    <input type="text" id="profileName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileEmail">Email Address</label>
+                                    <input type="email" id="profileEmail" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profilePhone">Phone Number</label>
+                                    <input type="tel" id="profilePhone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileBirthday">Date of Birth</label>
+                                    <input type="date" id="profileBirthday">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="profileBio">Bio/Description</label>
+                                <textarea id="profileBio" rows="3" placeholder="Tell us a little about yourself..."></textarea>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancelProfileBtn">Cancel</button>
+                                <button type="submit" class="btn btn-primary" id="saveProfileBtn">Save Changes</button>
+                            </div>
+                        </form>
+                        
+                        <div class="danger-zone">
+                            <h3>Danger Zone</h3>
+                            <p>Permanently delete your account and all associated data.</p>
+                            <button class="btn btn-danger" id="deleteAccountBtn">
+                                <i class="fas fa-trash"></i> Delete Account
+                            </button>
+                        </div>
+                    </section>
+                    
+                    <!-- Addresses Section -->
+                    <section id="addressesSection" class="profile-section">
+                        <div class="section-header">
+                            <h2>My Addresses</h2>
+                            <p>Manage your shipping and billing addresses</p>
+                        </div>
+                        
+                        <div class="addresses-list" id="addressesList">
+                            <!-- Addresses will be loaded here -->
+                        </div>
+                        
+                        <button class="btn btn-primary" id="addAddressBtn">
+                            <i class="fas fa-plus"></i> Add New Address
+                        </button>
+                    </section>
+                    
+                    <!-- Orders Section -->
+                    <section id="ordersSection" class="profile-section">
+                        <div class="section-header">
+                            <h2>Recent Orders</h2>
+                            <p>View and track your recent purchases</p>
+                        </div>
+                        
+                        <div class="orders-summary">
+                            <div class="summary-card">
+                                <i class="fas fa-clock"></i>
+                                <div class="summary-info">
+                                    <h3 id="processingOrders">0</h3>
+                                    <p>Processing</p>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <i class="fas fa-truck"></i>
+                                <div class="summary-info">
+                                    <h3 id="shippedOrders">0</h3>
+                                    <p>Shipped</p>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <i class="fas fa-check-circle"></i>
+                                <div class="summary-info">
+                                    <h3 id="deliveredOrders">0</h3>
+                                    <p>Delivered</p>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <i class="fas fa-wallet"></i>
+                                <div class="summary-info">
+                                    <h3 id="totalSpent">$0</h3>
+                                    <p>Total Spent</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="recent-orders">
+                            <h3>Recent Orders</h3>
+                            <div class="orders-table" id="recentOrdersTable">
+                                <!-- Recent orders will be loaded here -->
+                            </div>
+                            <a href="order-history.html" class="btn btn-outline view-all-btn">
+                                View All Orders <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </section>
+                    
+                    <!-- Wishlist Section -->
+                    <section id="wishlistSection" class="profile-section">
+                        <div class="section-header">
+                            <h2>My Wishlist</h2>
+                            <p>Save items you love for later</p>
+                        </div>
+                        
+                        <div class="wishlist-items" id="wishlistItems">
+                            <!-- Wishlist items will be loaded here -->
+                        </div>
+                        
+                        <div class="empty-wishlist" id="emptyWishlist">
+                            <i class="fas fa-heart"></i>
+                            <h3>Your wishlist is empty</h3>
+                            <p>Save items you love by clicking the heart icon on any product.</p>
+                            <a href="products.html" class="btn btn-primary">Browse Products</a>
+                        </div>
+                    </section>
+                    
+                    <!-- Security Section -->
+                    <section id="securitySection" class="profile-section">
+                        <div class="section-header">
+                            <h2>Security Settings</h2>
+                            <p>Manage your password and account security</p>
+                        </div>
+                        
+                        <form id="passwordForm" class="security-form">
+                            <h3>Change Password</h3>
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword" required minlength="6">
+                                <small class="form-help">Must be at least 6 characters long</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm New Password</label>
+                                <input type="password" id="confirmPassword" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancelPasswordBtn">Cancel</button>
+                                <button type="submit" class="btn btn-primary" id="savePasswordBtn">Update Password</button>
+                            </div>
+                        </form>
+                        
+                        <div class="security-settings">
+                            <h3>Security Preferences</h3>
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4>Two-Factor Authentication</h4>
+                                    <p>Add an extra layer of security to your account</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="twoFactorToggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4>Login Notifications</h4>
+                                    <p>Get notified when someone logs into your account</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="loginNotificationsToggle" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4>Session Management</h4>
+                                    <p>View and manage your active sessions</p>
+                                </div>
+                                <button class="btn btn-outline" id="manageSessionsBtn">
+                                    Manage Sessions
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Notifications Section -->
+                    <section id="notificationsSection" class="profile-section">
+                        <div class="section-header">
+                            <h2>Notification Settings</h2>
+                            <p>Choose how and when you want to be notified</p>
+                        </div>
+                        
+                        <div class="notification-settings">
+                            <div class="notification-category">
+                                <h3>Email Notifications</h3>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Order Updates</h4>
+                                        <p>Get notified about order status changes</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="emailOrderUpdates" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Promotional Offers</h4>
+                                        <p>Receive emails about sales and promotions</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="emailPromotions" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Product Recommendations</h4>
+                                        <p>Get personalized product suggestions</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="emailRecommendations">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-category">
+                                <h3>Push Notifications</h3>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Order Alerts</h4>
+                                        <p>Receive push notifications for order updates</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pushOrderAlerts" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Price Drops</h4>
+                                        <p>Get notified when items in your wishlist go on sale</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pushPriceDrops">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Back in Stock</h4>
+                                        <p>Notify me when out-of-stock items are available</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pushBackInStock" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-actions">
+                                <button class="btn btn-secondary" id="resetNotificationsBtn">Reset to Default</button>
+                                <button class="btn btn-primary" id="saveNotificationsBtn">Save Preferences</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Address Modal -->
+    <div class="modal" id="addressModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="addressModalTitle">Add New Address</h2>
+            <form id="addressForm">
+                <div class="form-group">
+                    <label for="addressType">Address Type</label>
+                    <select id="addressType">
+                        <option value="home">Home</option>
+                        <option value="work">Work</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="addressName">Full Name</label>
+                    <input type="text" id="addressName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="addressPhone">Phone Number</label>
+                    <input type="tel" id="addressPhone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="addressStreet">Street Address</label>
+                    <input type="text" id="addressStreet" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addressCity">City</label>
+                        <input type="text" id="addressCity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="addressState">State/Province</label>
+                        <input type="text" id="addressState" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addressZip">ZIP/Postal Code</label>
+                        <input type="text" id="addressZip" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="addressCountry">Country</label>
+                        <input type="text" id="addressCountry" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="setAsDefault">
+                        <span>Set as default shipping address</span>
+                    </label>
+                </div>
+                
+                <input type="hidden" id="addressId" value="">
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelAddressBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveAddressBtn">Save Address</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sessions Modal -->
+    <div class="modal" id="sessionsModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Active Sessions</h2>
+            <div class="sessions-list" id="sessionsList">
+                <!-- Active sessions will be listed here -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-danger" id="logoutAllBtn">Logout All Other Sessions</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Modal -->
+    <div class="modal" id="deleteAccountModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="danger-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2>Delete Account</h2>
+            <p class="warning-text">
+                Are you sure you want to delete your account? This action cannot be undone. 
+                All your data, including orders and preferences, will be permanently deleted.
+            </p>
+            <div class="form-group">
+                <label for="confirmDeleteText">
+                    Type <strong>DELETE MY ACCOUNT</strong> to confirm:
+                </label>
+                <input type="text" id="confirmDeleteText" placeholder="DELETE MY ACCOUNT">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn" disabled>Delete Account Permanently</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Shopper Stop</h3>
+                    <p>Your trusted online shopping destination since 2024</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="products.html">Products</a>
+                    <a href="cart.html">Cart</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: support@shopperstop.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <p class="copyright">&copy; 2024 Shopper Stop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="register">Register</button>
+            </div>
+            
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

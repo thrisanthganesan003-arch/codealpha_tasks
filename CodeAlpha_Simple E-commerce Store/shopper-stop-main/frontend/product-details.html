@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Shopper Stop</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/product-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Shopper Stop</span>
+            </a>
+            
+            <div class="search-box">
+                <input type="text" placeholder="Search products..." id="searchInput">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="products.html" class="nav-link">
+                    <i class="fas fa-store"></i>
+                    <span>Products</span>
+                </a>
+                <a href="cart.html" class="nav-link cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                    <span class="cart-count">0</span>
+                </a>
+                <div class="nav-link auth-link">
+                    <i class="fas fa-user"></i>
+                    <span id="authText">Login</span>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html" class="mobile-menu-link">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="products.html" class="mobile-menu-link">
+            <i class="fas fa-store"></i> Products
+        </a>
+        <a href="cart.html" class="mobile-menu-link">
+            <i class="fas fa-shopping-cart"></i> Cart
+        </a>
+        <a href="profile.html" class="mobile-menu-link">
+            <i class="fas fa-user"></i> Profile
+        </a>
+        <a href="order-history.html" class="mobile-menu-link">
+            <i class="fas fa-history"></i> Orders
+        </a>
+        <a href="#" class="mobile-menu-link" id="mobileAuthLink">
+            <i class="fas fa-user"></i> <span id="mobileAuthText">Login</span>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="products.html">Products</a>
+                <i class="fas fa-chevron-right"></i>
+                <span id="productCategory"></span>
+                <i class="fas fa-chevron-right"></i>
+                <span id="productName"></span>
+            </nav>
+
+            <!-- Product Details -->
+            <div class="product-details-container">
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img id="mainProductImage" src="" alt="Product Image">
+                    </div>
+                    <div class="image-thumbnails" id="imageThumbnails">
+                        <!-- Thumbnails will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="product-info">
+                    <h1 id="productTitle"></h1>
+                    <div class="product-meta">
+                        <div class="product-rating" id="productRating">
+                            <!-- Stars will be inserted here -->
+                        </div>
+                        <span class="review-count" id="reviewCount">0 reviews</span>
+                        <span class="product-sku">SKU: <span id="productSKU"></span></span>
+                        <span class="stock-status" id="stockStatus"></span>
+                    </div>
+                    
+                    <div class="product-price">
+                        <span class="current-price" id="currentPrice"></span>
+                        <span class="original-price" id="originalPrice"></span>
+                        <span class="discount" id="discountBadge"></span>
+                    </div>
+                    
+                    <div class="product-description">
+                        <h3>Description</h3>
+                        <p id="productDescription"></p>
+                    </div>
+                    
+                    <div class="product-specifications" id="productSpecifications">
+                        <!-- Specifications will be loaded here -->
+                    </div>
+                    
+                    <div class="product-actions">
+                        <div class="quantity-selector">
+                            <button class="quantity-btn minus-btn">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" id="productQuantity" value="1" min="1" max="99">
+                            <button class="quantity-btn plus-btn">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        
+                        <button class="btn btn-primary btn-add-to-cart" id="addToCartBtn">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        
+                        <button class="btn btn-secondary btn-wishlist" id="wishlistBtn">
+                            <i class="far fa-heart"></i> Add to Wishlist
+                        </button>
+                    </div>
+                    
+                    <div class="product-shipping">
+                        <div class="shipping-info">
+                            <i class="fas fa-shipping-fast"></i>
+                            <div>
+                                <strong>Free Shipping</strong>
+                                <p>On orders over $50</p>
+                            </div>
+                        </div>
+                        <div class="shipping-info">
+                            <i class="fas fa-undo"></i>
+                            <div>
+                                <strong>30-Day Returns</strong>
+                                <p>Easy return policy</p>
+                            </div>
+                        </div>
+                        <div class="shipping-info">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <strong>2-Year Warranty</strong>
+                                <p>Manufacturer warranty</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Tabs -->
+            <div class="product-tabs">
+                <div class="tab-headers">
+                    <button class="tab-header active" data-tab="description">Description</button>
+                    <button class="tab-header" data-tab="specifications">Specifications</button>
+                    <button class="tab-header" data-tab="reviews">Reviews (<span id="reviewsCount">0</span>)</button>
+                    <button class="tab-header" data-tab="shipping">Shipping & Returns</button>
+                </div>
+                
+                <div class="tab-content active" id="descriptionTab">
+                    <div id="fullDescription"></div>
+                </div>
+                
+                <div class="tab-content" id="specificationsTab">
+                    <table class="specs-table" id="specsTable">
+                        <!-- Specifications table will be loaded here -->
+                    </table>
+                </div>
+                
+                <div class="tab-content" id="reviewsTab">
+                    <div class="reviews-container">
+                        <div class="reviews-summary">
+                            <div class="overall-rating">
+                                <div class="rating-number" id="overallRating">0.0</div>
+                                <div class="rating-stars"></div>
+                                <div class="total-reviews" id="totalReviews">0 reviews</div>
+                            </div>
+                            <div class="rating-bars">
+                                <!-- Rating bars will be loaded here -->
+                            </div>
+                        </div>
+                        
+                        <div class="add-review" id="addReviewSection">
+                            <h3>Add Your Review</h3>
+                            <form id="reviewForm">
+                                <div class="form-group">
+                                    <label>Your Rating</label>
+                                    <div class="star-rating">
+                                        <i class="far fa-star" data-rating="1"></i>
+                                        <i class="far fa-star" data-rating="2"></i>
+                                        <i class="far fa-star" data-rating="3"></i>
+                                        <i class="far fa-star" data-rating="4"></i>
+                                        <i class="far fa-star" data-rating="5"></i>
+                                    </div>
+                                    <input type="hidden" id="userRating" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="reviewComment">Your Review</label>
+                                    <textarea id="reviewComment" rows="4" placeholder="Share your experience with this product..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="submitReviewBtn">Submit Review</button>
+                            </form>
+                        </div>
+                        
+                        <div class="reviews-list" id="reviewsList">
+                            <!-- Reviews will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="shippingTab">
+                    <div class="shipping-info-content">
+                        <h3>Shipping Information</h3>
+                        <p>We offer fast and reliable shipping options:</p>
+                        <ul>
+                            <li><strong>Standard Shipping:</strong> 3-5 business days - $4.99</li>
+                            <li><strong>Express Shipping:</strong> 1-2 business days - $9.99</li>
+                            <li><strong>Free Shipping:</strong> On orders over $50</li>
+                        </ul>
+                        
+                        <h3>Return Policy</h3>
+                        <p>We offer a 30-day return policy for unused items in original packaging:</p>
+                        <ul>
+                            <li>Items must be returned within 30 days of delivery</li>
+                            <li>Products must be in original condition and packaging</li>
+                            <li>Return shipping is free for defective items</li>
+                            <li>Refunds are processed within 5-7 business days</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <section class="related-products">
+                <h2>Related Products</h2>
+                <div class="product-grid" id="relatedProducts">
+                    <!-- Related products will be loaded here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Shopper Stop</h3>
+                    <p>Your trusted online shopping destination since 2024</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="products.html">Products</a>
+                    <a href="cart.html">Cart</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: support@shopperstop.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <p class="copyright">&copy; 2024 Shopper Stop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="register">Register</button>
+            </div>
+            
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="successTitle">Success!</h3>
+            <p id="successMessage"></p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="continueShoppingBtn">Continue Shopping</button>
+                <a href="cart.html" class="btn btn-primary" id="viewCartBtn">View Cart</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/product-details.js"></script>
+</body>
+</html>

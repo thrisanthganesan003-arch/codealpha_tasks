@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - Shopper Stop</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/order-confirmation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Shopper Stop</span>
+            </a>
+            
+            <div class="search-box">
+                <input type="text" placeholder="Search products..." id="searchInput">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="products.html" class="nav-link">
+                    <i class="fas fa-store"></i>
+                    <span>Products</span>
+                </a>
+                <a href="cart.html" class="nav-link cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                    <span class="cart-count">0</span>
+                </a>
+                <div class="nav-link auth-link">
+                    <i class="fas fa-user"></i>
+                    <span id="authText">Login</span>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html" class="mobile-menu-link">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="products.html" class="mobile-menu-link">
+            <i class="fas fa-store"></i> Products
+        </a>
+        <a href="cart.html" class="mobile-menu-link">
+            <i class="fas fa-shopping-cart"></i> Cart
+        </a>
+        <a href="profile.html" class="mobile-menu-link">
+            <i class="fas fa-user"></i> Profile
+        </a>
+        <a href="order-history.html" class="mobile-menu-link">
+            <i class="fas fa-history"></i> Orders
+        </a>
+        <a href="#" class="mobile-menu-link" id="mobileAuthLink">
+            <i class="fas fa-user"></i> <span id="mobileAuthText">Login</span>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="confirmation-container">
+                <!-- Success Icon -->
+                <div class="confirmation-icon">
+                    <div class="icon-circle">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- Confirmation Message -->
+                <div class="confirmation-message">
+                    <h1>Thank You for Your Order!</h1>
+                    <p>Your order has been successfully placed and is being processed.</p>
+                    <p class="order-number">Order #<span id="orderNumber"></span></p>
+                    <p class="confirmation-text">
+                        We've sent a confirmation email to <span id="customerEmail"></span>. 
+                        You'll receive a shipping confirmation once your order is on its way.
+                    </p>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="order-summary-card">
+                    <h2>Order Summary</h2>
+                    
+                    <div class="summary-details">
+                        <div class="detail-row">
+                            <span>Order Date</span>
+                            <span id="orderDate"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Order Total</span>
+                            <span class="order-total" id="orderTotal"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Payment Method</span>
+                            <span id="paymentMethod"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Order Status</span>
+                            <span class="status-badge" id="orderStatus"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="estimated-delivery">
+                        <i class="fas fa-truck"></i>
+                        <div>
+                            <strong>Estimated Delivery</strong>
+                            <p id="deliveryDate"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Items -->
+                <div class="order-items-section">
+                    <h2>Order Details</h2>
+                    <div class="order-items" id="orderItems">
+                        <!-- Order items will be loaded here -->
+                    </div>
+                </div>
+                
+                <!-- Shipping Information -->
+                <div class="shipping-section">
+                    <div class="shipping-info">
+                        <h3>Shipping Address</h3>
+                        <div class="address-details" id="shippingAddress">
+                            <!-- Address will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="billing-info">
+                        <h3>Billing Address</h3>
+                        <p id="billingAddress">Same as shipping address</p>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="products.html" class="btn btn-secondary">
+                        <i class="fas fa-shopping-bag"></i> Continue Shopping
+                    </a>
+                    <a href="order-history.html" class="btn btn-primary">
+                        <i class="fas fa-history"></i> View Order History
+                    </a>
+                    <button class="btn btn-outline" id="printReceiptBtn">
+                        <i class="fas fa-print"></i> Print Receipt
+                    </button>
+                </div>
+                
+                <!-- Help Section -->
+                <div class="help-section">
+                    <h3>Need Help?</h3>
+                    <p>If you have any questions about your order, please contact our customer support.</p>
+                    <div class="contact-options">
+                        <div class="contact-option">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email Us</strong>
+                                <p>support@shopperstop.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-option">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Call Us</strong>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-option">
+                            <i class="fas fa-comments"></i>
+                            <div>
+                                <strong>Live Chat</strong>
+                                <p>Available 24/7</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Shopper Stop</h3>
+                    <p>Your trusted online shopping destination since 2024</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="products.html">Products</a>
+                    <a href="cart.html">Cart</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: support@shopperstop.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <p class="copyright">&copy; 2024 Shopper Stop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="register">Register</button>
+            </div>
+            
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/order-confirmation.js"></script>
+</body>
+</html>

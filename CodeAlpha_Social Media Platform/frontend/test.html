@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+    <style>
+        body { font-family: Arial; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+        h1 { color: #333; }
+        .section { margin: 20px 0; padding: 15px; background: #f9f9f9; border-left: 4px solid #1877f2; }
+        input, button { padding: 10px; margin: 5px 0; width: 100%; box-sizing: border-box; }
+        button { background: #1877f2; color: white; border: none; cursor: pointer; border-radius: 4px; }
+        button:hover { background: #166fe5; }
+        .output { background: #f0f0f0; padding: 10px; margin-top: 10px; border-radius: 4px; font-family: monospace; max-height: 200px; overflow-y: auto; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 API Diagnostic Test</h1>
+        
+        <div class="section">
+            <h2>1. Test Backend Connection</h2>
+            <button onclick="testBackend()">Test Backend (http://localhost:5000)</button>
+            <div id="backend-output" class="output"></div>
+        </div>
+
+        <div class="section">
+            <h2>2. Test Register</h2>
+            <input type="email" id="register-email" placeholder="Email (e.g., test@test.com)">
+            <input type="text" id="register-username" placeholder="Username (e.g., testuser)">
+            <input type="text" id="register-name" placeholder="Full Name (e.g., Test User)">
+            <input type="password" id="register-password" placeholder="Password (e.g., password123)">
+            <button onclick="testRegister()">Register User</button>
+            <div id="register-output" class="output"></div>
+        </div>
+
+        <div class="section">
+            <h2>3. Test Login</h2>
+            <input type="email" id="login-email" placeholder="Email">
+            <input type="password" id="login-password" placeholder="Password">
+            <button onclick="testLogin()">Login User</button>
+            <div id="login-output" class="output"></div>
+        </div>
+
+        <div class="section">
+            <h2>4. Clear Everything & Reset</h2>
+            <button onclick="clearAll()" style="background: var(--button);">Clear LocalStorage & Reload</button>
+        </div>
+
+        <div class="section">
+            <h2>5. Check Console</h2>
+            <p>Press F12 and go to Console tab to see detailed errors.</p>
+        </div>
+    </div>
+
+    <script>
+        async function testBackend() {
+            const output = document.getElementById('backend-output');
+            output.innerHTML = 'Testing...';
+            try {
+                const response = await fetch('http://localhost:5000/');
+                output.innerHTML = `<span class="success">✓ Backend is running!</span><br>Status: ${response.status}`;
+            } catch (error) {
+                output.innerHTML = `<span class="error">✗ Backend NOT running!</span><br>Error: ${error.message}<br><br>FIX: Make sure you ran:<br>cd backend<br>npm run dev`;
+            }
+        }
+
+        async function testRegister() {
+            const output = document.getElementById('register-output');
+            output.innerHTML = 'Registering...';
+            
+            const email = document.getElementById('register-email').value;
+            const username = document.getElementById('register-username').value;
+            const name = document.getElementById('register-name').value;
+            const password = document.getElementById('register-password').value;
+
+            if (!email || !username || !name || !password) {
+                output.innerHTML = '<span class="error">✗ Fill in all fields!</span>';
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, username, name, password, bio: 'Test user' })
+                });
+
+                const data = await response.json();
+                console.log('Register response:', data);
+
+                if (response.ok) {
+                    output.innerHTML = `<span class="success">✓ Registration successful!</span><br>Token: ${data.token.substring(0, 50)}...<br><br>Copy email: ${email}<br>Copy password: ${password}<br><br>Use these to login!`;
+                    localStorage.setItem('token', data.token);
+                } else {
+                    output.innerHTML = `<span class="error">✗ Registration failed!</span><br>Error: ${data.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                output.innerHTML = `<span class="error">✗ Error: ${error.message}</span>`;
+                console.error('Register error:', error);
+            }
+        }
+
+        async function testLogin() {
+            const output = document.getElementById('login-output');
+            output.innerHTML = 'Logging in...';
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            if (!email || !password) {
+                output.innerHTML = '<span class="error">✗ Fill in email and password!</span>';
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                console.log('Login response:', data);
+
+                if (response.ok) {
+                    output.innerHTML = `<span class="success">✓ Login successful!</span><br>User: ${data.user.name}<br>Token saved to localStorage`;
+                    localStorage.setItem('token', data.token);
+                    
+                    setTimeout(() => {
+                        output.innerHTML += `<br><br>Redirecting to app in 3 seconds...`;
+                        setTimeout(() => {
+                            window.location.href = 'http://localhost:3000';
+                        }, 3000);
+                    }, 500);
+                } else {
+                    output.innerHTML = `<span class="error">✗ Login failed!</span><br>Error: ${data.error || 'Unknown error'}<br><br>Make sure:<br>1. You registered this account<br>2. Email and password are correct`;
+                }
+            } catch (error) {
+                output.innerHTML = `<span class="error">✗ Error: ${error.message}</span>`;
+                console.error('Login error:', error);
+            }
+        }
+
+        function clearAll() {
+            localStorage.clear();
+            alert('LocalStorage cleared!');
+            location.reload();
+        }
+
+        // Test backend on page load
+        window.onload = testBackend;
+    </script>
+</body>
+</html>
