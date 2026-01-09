@@ -82,5 +82,5 @@ Create new model in backend/models/
 Create controller in backend/controllers/
 Define routes in backend/routes/
 Update frontend JavaScript for new functionality
-Add corresponding HTML/CSS if needed 👥 Contributors • Nikhilsuresh.S 🙏 Acknowledgments • Unsplash for product images • Font Awesome for icons • MongoDB, Express.js, Node.js communities • All open-source libraries used in this project 📞 Support For support, email nikhilsuresh482006@gmail.com or create an issue in the GitHub repository.
+Add corresponding HTML/CSS if needed 👥 Contributors • THRISANTH.G🙏 Acknowledgments • Unsplash for product images • Font Awesome for icons • MongoDB, Express.js, Node.js communities • All open-source libraries used in this project 📞 Support For support, thrisanthganesan003gmail.com  or create an issue in the GitHub repository.
 Happy Shopping! 🛍️
