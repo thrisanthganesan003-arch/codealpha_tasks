@@ -4,7 +4,7 @@ Backend (Server-side) ├── Node.js with Express.js ├── MongoDB with M
 
 Database ├── MongoDB ├── Collections: Users, Products, Carts, Orders └── Relationships and Indexes 📁 Project Structure text shopper-stop/ ├── backend/ # Express.js backend │ ├── config/ # Configuration files │ ├── controllers/ # Business logic │ ├── middleware/ # Custom middleware │ ├── models/ # MongoDB schemas │ ├── routes/ # API routes │ ├── utils/ # Utility functions │ ├── server.js # Main server file │ ├── seed.js # Database seeding │ └── package.json # Backend dependencies │ ├── frontend/ # Frontend application │ ├── assets/ # Images and static files │ ├── js/ # JavaScript files │ ├── pages/ # HTML pages │ ├── styles/ # CSS stylesheets │ ├── index.html # Home page │ ├── products.html # Products page │ ├── cart.html # Shopping cart │ └── README.md # Frontend documentation │ ├── .gitignore # Git ignore rules ├── README.md # This file └── package.json # Root dependencies 🚀 Quick Start Prerequisites • Node.js (v14 or higher) • MongoDB (v4.4 or higher) • Git Installation
 
-Clone the repository bash git clone https://github.com/nikhil-programmer-official/shopper-stop.git cd shopper-stop
+Clone the repository bash git clone https://github.com/thrisanthganesan003-arch/codealpha_tasks/edit/main/CodeAlpha_Simple%20E-commerce%20Store
 Install backend dependencies bash cd backend npm install
 Set up environment variables bash cp .env.example .env
 Edit .env with your configuration
